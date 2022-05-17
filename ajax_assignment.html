@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+   Enter RollNo: <input type="text" id="rollno">
+   <input type="button" value="GetRecord" onclick="func()">
+   <div id="mydiv">
+       
+   </div>
+
+   <script type="text/javascript">
+
+        function func(){
+                var d=document.getElementById("rollno").value;
+                var obj=new XMLHttpRequest();
+                obj.onreadystatechange=function(){
+                    if(obj.readyState==4 && obj.status==200){
+                            myfunction(obj.responseText);
+                            alert(obj.responseText);
+                    }
+                }
+                var s="Rollno="+d;
+                
+                obj.open("GET","ajax_assignment.php?"+s,true);
+                obj.send();
+
+        }
+
+function myfunction(s){
+    console.log(s)
+    var arr=JSON.parse(s);
+    
+	alert(arr);
+	var i;
+	var out = "<table border=2>";
+	for (i=0;i<arr.length;i++)
+	{
+     out +="<tr><td>" +arr[i].Rollno+"</td><td>"+arr[i].Name+"</td></tr>";
+	}
+	out +="</table>";
+	document.getElementById("mydiv").innerHTML=out;
+}
+
+   </script>
+
+</body>
+</html>
